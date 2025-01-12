@@ -51,17 +51,19 @@ router.post("/update", async function (req, res) {
       { picture: req.body.picture }
     );
     res.status(200).send(updatedProduct);
+
+    let updatedMainProducts = await ownerModel.updateOne(
+      { "mainProducts._id": product._id },
+      {
+        $set: {
+          "mainProducts.$.picture": req.body.picture,
+          "mainProducts.$.name": req.body.name,
+        },
+      }
+    );
+    await updatedMainProducts.save();
+    await ownerModel.save();
   }
-  let updatedMainProducts = await ownerModel.updateOne(
-    { "mainProducts._id": product._id },
-    {
-      $set: {
-        "mainProducts.$.picture": req.body.picture,
-        "mainProducts.$.name": req.body.name,
-      },
-    }
-  );
-  await updatedMainProducts.save();
 });
 
 module.exports = router;

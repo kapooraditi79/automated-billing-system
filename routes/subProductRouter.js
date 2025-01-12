@@ -49,4 +49,37 @@ router.post("/delete", async function (req, res) {
   await mainProduct.save();
 });
 
+router.post("/update", async function (req, res) {
+  let subProduct = await subProductModel.findOne({ name: req.body.name });
+  if (!subProduct) {
+    return res.status(404).send("subProduct Not found");
+  } else {
+    let updatedSubProduct = await subProductModel.findOneAndUpdate({
+      name: req.body.name,
+      price: req.body.price,
+      picture: req.body.picture,
+      discount: req.body.discount,
+      mainProduct: req.body.mainProduct,
+    });
+    res.status(200).send(updatedSubProduct);
+    let mainProduct = await mainProductModel.findOne({
+      name: req.body.mainProduct,
+    });
+    let updatedSubProducts = await mainProductModel.updateOne(
+      { "subProducts._id": subProduct._id },
+      {
+        $set: {
+          "subProducts.$.name": req.body.name,
+          "subProducts.$.price": req.body.price,
+          "subProducts.$.picture": req.body.picture,
+          "subProducts.$.discount": req.body.discount,
+          "subProducts.$.mainProduct": req.body.mainProduct,
+        },
+      }
+    );
+    await updatedSubProducts.save();
+    await mainProduct.save();
+  }
+});
+
 module.exports = router;
