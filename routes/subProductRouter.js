@@ -54,13 +54,16 @@ router.post("/update", async function (req, res) {
   if (!subProduct) {
     return res.status(404).send("subProduct Not found");
   } else {
-    let updatedSubProduct = await subProductModel.findOneAndUpdate({
-      name: req.body.name,
-      price: req.body.price,
-      picture: req.body.picture,
-      discount: req.body.discount,
-      mainProduct: req.body.mainProduct,
-    });
+    let updatedSubProduct = await subProductModel.findOneAndUpdate(
+      { name: req.body.name },
+      {
+        price: req.body.price,
+        picture: req.body.picture,
+        discount: req.body.discount,
+        mainProduct: req.body.mainProduct,
+      },
+      { new: true }
+    );
     res.status(200).send(updatedSubProduct);
     let mainProduct = await mainProductModel.findOne({
       name: req.body.mainProduct,
