@@ -3,45 +3,50 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Delete From Cart</title>
+    <title>Add To Cart</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <div class="w-full min-h-screen bg-zinc-900">
+  <body class="bg-zinc-900">
+    <div class="w-full min-h-screen">
+      <!-- Back to Products Link -->
       <div class="p-4">
-        <a
-          href="/randomModel/subProducts"
-          class="text-white underline hover:text-blue-500"
-          >Back To SubProducts</a
-        >
+        <a href="/randomModel" class="text-white underline hover:text-blue-400">
+          Back To Main Products
+        </a>
       </div>
-      <div class="p-4">
-        <a href="/randomModel" class="text-white underline hover:text-blue-500"
-          >Back To Main Products</a
-        >
-      </div>
-      <div class="flex items-start gap-5">
+
+      <!-- Product Cards Container -->
+      <div class="flex flex-wrap justify-center gap-8 p-6">
         <% subProducts.forEach(function(item){%>
-        <div class="w-60">
-          <div class="w-full h-52 flex items-center justify-center bg-blue">
-            <img class="h-[12rem]" src="" alt="<%= item.name %>" />
+        <div
+          class="w-64 bg-zinc-800 rounded-lg shadow-lg border border-zinc-700 overflow-hidden"
+        >
+          <!-- Image Section -->
+          <div class="w-full h-52 flex items-center justify-center bg-blue-100">
+            <img
+              class="h-40 object-contain"
+              src="<%= item.image %>"
+              alt="<%= item.name %>"
+            />
           </div>
-          <div
-            class="flex justify-between bg-blue items-center px-4 py-4 text-white"
-          >
-            <div>
-              <h3><%= item.name %></h3>
-              <h3><%= item.price %></h3>
-            </div>
+
+          <!-- Details Section -->
+          <div class="p-4 text-white">
+            <h3 class="text-lg font-semibold"><%= item.name %></h3>
+            <p class="text-sm text-gray-400">$<%= item.price %></p>
+          </div>
+
+          <!-- Add to Cart Button -->
+          <div class="flex justify-end px-4 py-3 bg-zinc-700">
             <a
-              class="w-7 h-7 flex items-center justify-center rounded-full bg-white"
               href="/randomModel/deleteFromCart?subProduct=<%=item._id%>"
+              class="w-8 h-8 flex items-center justify-center rounded-full bg-blue-500 text-white hover:bg-blue-600 transition"
             >
               <i class="ri-add-line"></i>
             </a>
           </div>
         </div>
-        <%})%>
+        <% }) %>
       </div>
     </div>
   </body>

@@ -6,30 +6,43 @@
     <title>SubProducts</title>
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
-  <body>
-    <div class="w-full min-h-screen bg-zinc-900">
+  <body class="bg-zinc-900">
+    <div class="w-full min-h-screen">
       <div class="p-4">
         <a href="/randomModel" class="text-white underline hover:text-blue-500"
           >Back To Main Products</a
         >
       </div>
-      <div class="flex items-start gap-5">
+      <div class="flex flex-wrap justify-center gap-10 p-8">
         <% subProducts.forEach(function(subProduct){%>
-        <div class="w-60">
-          <div class="w-full h-52 flex items-center justify-center bg-blue">
-            <img class="h-[12rem]" src="" alt="<%= subProduct.name %>" />
-          </div>
+        <div
+          class="w-80 bg-zinc-800 rounded-lg border border-zinc-700 shadow-md hover:shadow-lg transition overflow-hidden"
+        >
+          <!-- Image Section -->
           <div
-            class="flex justify-between bg-blue items-center px-4 py-4 text-white"
+            class="w-full h-64 flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-500"
           >
-            <div>
-              <h3><%= subProduct.name %></h3>
-              <h3><%= subProduct.price %></h3>
-              <h3>Discount:<%= subProduct.discount%>%</h3>
-            </div>
+            <img
+              class="h-56 object-contain"
+              src=""
+              alt="<%= subProduct.name %>"
+            />
+          </div>
+
+          <!-- Details Section -->
+          <div class="p-5 text-white">
+            <h3 class="text-xl font-semibold mb-1"><%= subProduct.name %></h3>
+            <p class="text-lg">Price: $<%= subProduct.price %></p>
+            <p class="text-sm text-blue-400">
+              Discount: <%= subProduct.discount %>%
+            </p>
+          </div>
+
+          <!-- Action Button Section -->
+          <div class="flex justify-end p-4 bg-blue-600">
             <a
-              class="w-7 h-7 flex items-center justify-center rounded-full bg-white"
               href="/randomModel/addToCart?subProduct=<%=subProduct.id%>"
+              class="w-10 h-10 flex items-center justify-center rounded-full bg-white text-blue-600 hover:bg-blue-100 transition"
             >
               <i class="ri-add-line"></i>
             </a>
