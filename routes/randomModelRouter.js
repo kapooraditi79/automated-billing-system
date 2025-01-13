@@ -30,7 +30,7 @@ router.get("/addToCart", async function (req, res) {
   }
   random.subProducts.push(item);
   await random.save();
-  console.log(random.subProducts);
+  res.render("addToCart", { subProducts: random.subProducts });
 });
 
 router.get("/deleteFromCart", async function (req, res) {
@@ -40,7 +40,7 @@ router.get("/deleteFromCart", async function (req, res) {
     return !subProduct._id.equals(item._id);
   });
   await random.save();
-  console.log(random.subProducts);
+  res.render("deleteFromCart", { subProducts: random.subProducts });
 });
 
 module.exports = router;
