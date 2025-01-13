@@ -25,8 +25,14 @@
             <div>
               <h3><%= subProduct.name %></h3>
               <h3><%= subProduct.price %></h3>
-              <h3><%= subProduct.discount%></h3>
+              <h3>Discount:<%= subProduct.discount%>%</h3>
             </div>
+            <a
+              class="w-7 h-7 flex items-center justify-center rounded-full bg-white"
+              href="/randomModel/addToCart?subProduct=<%=subProduct.id%>"
+            >
+              <i class="ri-add-line"></i>
+            </a>
           </div>
         </div>
         <%})%>
