@@ -1,0 +1,30 @@
+random model interface.
+view page
+
+
+view the mainProducts->card-like structure
+|
+view the subProducts-> card like structure
+|
+put the add to cart feature
+|
+put the links to go to home, mainProducts, subProducts
+|
+
+
+make the owner page
+|
+put the add/delete/update features to the mainProducts
+|
+put the add/delete/update features to the subProducts
+
+
+
+
+
+
+eigen values are the numbers that indicate how much something stretches 
+or shrinks during the transformation
+
+eigen vectors tells about teh directions
+that remain unchanged during the transformation 

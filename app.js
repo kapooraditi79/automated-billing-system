@@ -3,6 +3,7 @@ const app = express();
 const ownerRouter = require("./routes/ownerRouter");
 const mainProductRouter = require("./routes/mainProductRouter");
 const subProductRouter = require("./routes/subProductRouter");
+const randomModelRouter = require("./routes/randomModelRouter");
 
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -17,6 +18,7 @@ app.set("view engine", "ejs");
 app.use("/owner", ownerRouter);
 app.use("/mainProduct", mainProductRouter);
 app.use("/subProduct", subProductRouter);
+app.use("/randomModel", randomModelRouter);
 
 app.get("/", function (req, res) {
   res.send("Part30");
