@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const subProductModel = require("../models/subProduct-model");
 const mainProductModel = require("../models/mainProduct-model");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
 router.get("/", function (req, res) {
   res.send("subProduct page");
 });
 
-router.post("/add", async function (req, res) {
+router.post("/add", isLoggedIn, async function (req, res) {
   let subProduct = await subProductModel.findOne({ name: req.body.name });
   if (subProduct) {
     return res.status(503).send("subProduct already exists");
@@ -33,7 +34,7 @@ router.post("/read", async function (req, res) {
   res.status(200).send(subProducts);
 });
 
-router.post("/delete", async function (req, res) {
+router.post("/delete", isLoggedIn, async function (req, res) {
   let deletedProduct = await subProductModel.findOneAndDelete({
     name: req.body.name,
   });
@@ -49,7 +50,7 @@ router.post("/delete", async function (req, res) {
   await mainProduct.save();
 });
 
-router.post("/update", async function (req, res) {
+router.post("/update", isLoggedIn, async function (req, res) {
   let subProduct = await subProductModel.findOne({ name: req.body.name });
   if (!subProduct) {
     return res.status(404).send("subProduct Not found");

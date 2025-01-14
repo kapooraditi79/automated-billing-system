@@ -34,7 +34,7 @@ app.use("/subProduct", subProductRouter);
 app.use("/randomModel", randomModelRouter);
 
 app.get("/", function (req, res) {
-  res.send("Part30");
+  res.send("Hello!");
 });
 
 app.listen(3000);

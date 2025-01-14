@@ -2,12 +2,13 @@ const express = require("express");
 const router = express.Router();
 const mainProductModel = require("../models/mainProduct-model");
 const ownerModel = require("../models/owner-model");
+const isLoggedIn = require("../middleware/isLoggedIn");
 
 router.get("/", function (req, res) {
   res.send("mainProduct page");
 });
 
-router.post("/add", async function (req, res) {
+router.post("/add", isLoggedIn, async function (req, res) {
   let product = await mainProductModel.findOne({ name: req.body.name });
   if (product) {
     return res.status(503).send(product);
@@ -28,7 +29,7 @@ router.get("/read", async function (req, res) {
   res.status(200).send(products);
 });
 
-router.post("/delete", async function (req, res) {
+router.post("/delete", isLoggedIn, async function (req, res) {
   let deletedProduct = await mainProductModel.findOneAndDelete({
     name: req.body.name,
     picture: req.body.picture,
@@ -41,7 +42,7 @@ router.post("/delete", async function (req, res) {
   await owner.save();
 });
 
-router.post("/update", async function (req, res) {
+router.post("/update", isLoggedIn, async function (req, res) {
   let product = await mainProductModel.findOne({ name: req.body.name });
   if (!product) {
     return res.status(404).send("Product not found");

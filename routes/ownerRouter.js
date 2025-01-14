@@ -17,7 +17,7 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: true }));
 
 router.get("/", function (req, res) {
-  res.send("Owner Router");
+  res.render("ownerLogin");
 });
 
 if (process.env.NODE_ENV === "development") {
@@ -77,6 +77,6 @@ router.post("/login", async function (req, res) {
   }
 });
 
-//creating isLoggedIn Middleware
+//creaing isLoggedIn Middleware
 
 module.exports = router;
