@@ -1,7 +1,3 @@
-random model interface.
-view page
-
-
 view the mainProducts->card-like structure ✅
 |
 view the subProducts-> card like structure ✅
@@ -29,12 +25,53 @@ the user can update the quantity of the subProducts in the cart
 
 
 
-
-
-make the owner page
+billing system to be made
 |
-put the add/delete/update features to the mainProducts
+the user can view the total amount of the cart[including the gst]
 |
-put the add/delete/update features to the subProducts
+the QR code must be visible.
 
 
+
+
+owner password- authentication setup ✅
+|
+make the owner page->Login/signup/ 
+|
+put the add/delete/update features to the mainProducts-> only owner will access
+|
+put the add/delete/update features to the subProducts-> only owner will access
+|
+only during the development phase can owner be changed/updated
+
+
+
+issues to be resolved:
+|
+the user can add the same subProducts multiple times directly from the subProducts page. 
+|
+out of multiple same products if the user deletes one product from the cart, only one should
+be deleted
+|
+if a main-Product is deleted-> all its subProducts should be deleted
+
+
+
+Authenication notes[only for the owner]:
+|
+jwt tokens to be used to setup cookies for the frontend
+|
+bcrypt is used to seut and check the passwords
+
+
+
+
+
+
+
+      // let token = jwt.sign(
+      //   { email: req.body.email, id: newOwner._id },
+      //   process.env.SECRET_KEY
+      // );
+      // res.cookie("token", token); //setting the token in the owner's browser
+      // res.status(201).send(newOwner);
