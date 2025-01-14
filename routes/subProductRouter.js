@@ -9,27 +9,41 @@ router.get("/", function (req, res) {
 });
 
 router.post("/add", isLoggedIn, async function (req, res) {
-  let subProduct = await subProductModel.findOne({ name: req.body.name });
-  if (subProduct) {
-    return res.status(503).send("subProduct already exists");
-  } else {
-    let newSubProduct = await subProductModel.create({
-      name: req.body.name,
-      picture: req.body.picture,
-      discount: req.body.discount,
-      price: req.body.price,
-      mainProduct: req.body.mainProduct,
-    });
-    res.status(201).send(newSubProduct);
-    let mainProduct = await mainProductModel.findOne({
-      name: req.body.mainProduct,
-    });
-    mainProduct.subProducts.push(newSubProduct);
-    await mainProduct.save();
+  try {
+    const subProduct = await subProductModel.findOne({ name: req.body.name });
+    if (subProduct) {
+      return res.status(503).send("subProduct already exists");
+    } else {
+      const newSubProduct = await subProductModel.create({
+        name: req.body.name,
+        picture: req.body.picture,
+        discount: req.body.discount,
+        price: req.body.price,
+        mainProduct: req.body.mainProduct,
+      });
+
+      const mainProduct = await mainProductModel.findOneAndUpdate(
+        {
+          name: req.body.mainProduct,
+        },
+        { $push: { subProducts: newSubProduct } },
+        { new: true }
+      );
+      if (!mainProduct) {
+        await subProductModel.findByIdAndDelete(newSubProduct._id);
+        return res.status(503).send("Main Product not found");
+      }
+
+      // mainProduct.subProducts = mainProduct.subProducts.push(newSubProduct);
+      // await mainProduct.subProducts.save();
+      res.status(201).send(newSubProduct);
+    }
+  } catch (err) {
+    res.status(503).send(err);
   }
 });
 
-router.post("/read", async function (req, res) {
+router.get("/read", async function (req, res) {
   let subProducts = await subProductModel.find();
   res.status(200).send(subProducts);
 });

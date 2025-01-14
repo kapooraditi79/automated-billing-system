@@ -8,6 +8,7 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const expressSession = require("express-session");
 const flash = require("connect-flash");
+const mainProductModel = require("./models/mainProduct-model");
 
 const cookieParser = require("cookie-parser");
 const path = require("path");
@@ -33,8 +34,9 @@ app.use("/mainProduct", mainProductRouter);
 app.use("/subProduct", subProductRouter);
 app.use("/randomModel", randomModelRouter);
 
-app.get("/", function (req, res) {
-  res.send("Hello!");
+app.get("/", async function (req, res) {
+  let products = await mainProductModel.find();
+  res.render("index", { products: products });
 });
 
 app.listen(3000);
