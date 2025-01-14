@@ -29,7 +29,7 @@ if (process.env.NODE_ENV === "development") {
       bcrypt.genSalt(10, async function (err, salt) {
         bcrypt.hash(req.body.password, salt, async function (err, hash) {
           let owner = await ownerModel.create({
-            fullName: req.body.password,
+            fullName: req.body.fullName,
             email: req.body.email,
             password: hash,
             gstin: req.body.gstin,
@@ -52,6 +52,10 @@ if (process.env.NODE_ENV === "development") {
     res.status(200).send(owner);
   });
 }
+
+router.get("/login", async function (req, res) {
+  res.render("ownerLogin");
+});
 
 router.post("/login", async function (req, res) {
   try {

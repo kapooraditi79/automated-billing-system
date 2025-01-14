@@ -50,7 +50,7 @@ router.get("/read", async function (req, res) {
 
 router.post("/delete", isLoggedIn, async function (req, res) {
   let deletedProduct = await subProductModel.findOneAndDelete({
-    name: req.body.name,
+    id: req.body.name,
   });
   res.status(200).send(deletedProduct);
   let mainProduct = await mainProductModel.findOne({
