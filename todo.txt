@@ -51,7 +51,8 @@ issues to be resolved:
 the user can add the same subProducts multiple times directly from the subProducts page. 
 |
 out of multiple same products if the user deletes one product from the cart, only one should
-be deleted
+be deleted✅
+
 |
 if a main-Product is deleted-> all its subProducts should be deleted
 
